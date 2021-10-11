@@ -1,0 +1,6 @@
+En esta parte se supone que se hizo un cambio sustancial
+a nuestra clase de BeerDto que cambia el campo Style que
+era un string a un elemento de la clase BeerEnum, un
+cambio como este se supone que cambia la version de la
+API a v2 por ejemplo, si fuera algún cambio menor se maneja
+solo con 1.1
