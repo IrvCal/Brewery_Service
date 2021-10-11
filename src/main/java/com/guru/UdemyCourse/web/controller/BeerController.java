@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 //@Deprecated en teoria se debe de poenr esta etiqueta porque ya hay V2
@@ -30,7 +31,7 @@ public class BeerController {
 
 
     @PostMapping                        // RequestBody indica que se tiene que mirar el cuerpo para obtener los datos
-    public ResponseEntity handlePost(@RequestBody BeerDto beerDto) {
+    public ResponseEntity handlePost(@Valid @RequestBody BeerDto beerDto) {
         BeerDto savedDto = service.saveBeer(beerDto);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/api/v1/beer/" + savedDto.getId().toString());
@@ -38,7 +39,8 @@ public class BeerController {
     }
 
     @PutMapping("/{beerId}")
-    public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId,@RequestBody BeerDto beerDto) {
+                                        // la etiqueta @Valid hace la validacion que se indique en el DTO
+    public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId,@Valid@RequestBody BeerDto beerDto) {
         service.updateBeer(beerId, beerDto);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -56,6 +58,7 @@ public class BeerController {
 3.- Seguimos haciendo el ResponseEntity de esta clase
 4.- Despues se hace el primer servicio que es getBeer
 5.- Creamos la variable de la interfaz
+6.- Se agregó la etiqueta @Validate para que valide lo que se indicó en el DTO
  */
 
 /*
