@@ -54,3 +54,12 @@ public class CustomerController {
     }
 
 }
+
+/*
+Tengo duda si la etiqueta es valid o validated
+
+Esta etiqueta es la que origino la necesidad de hacer la clase de MvcExceptionHandler,
+ya que como hace la validación  si esta no pasa, tira un error y esta es manejada
+por dicha clase
+
+ */
