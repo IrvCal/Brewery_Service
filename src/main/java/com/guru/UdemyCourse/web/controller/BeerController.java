@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.UUID;
 
-//@Deprecated en teoria se debe de poenr esta etiqueta porque ya hay V2
+@Deprecated// en teoria se debe de poenr esta etiqueta porque ya hay V2
 @RequestMapping("/api/v1/beer")//Este request mapping es como lo que pusimos en el ejemlpo de youtube
 @RestController
 public class BeerController {
@@ -51,6 +51,9 @@ public class BeerController {
     public void deleteBeer(@PathVariable("beerId") UUID beerId) {
         service.deleteBeerById(beerId);
     }
+
+//    PARA QUE ESTA CLASE QUEDARA DE ALGUNA FORMA "COMPLETA" HACE FALTA UN EXCEPTION HANDLER
+// PERO COMO ESTE METODO SE REPTIA AQUI Y EN CUSTOMERCONTROLLER MEJOR SE HIZO UNA CLASE ESPECIFICA PARA ESE METODO
 }
 /*
 1.- Primero se indica que es un controller rest con @RestController

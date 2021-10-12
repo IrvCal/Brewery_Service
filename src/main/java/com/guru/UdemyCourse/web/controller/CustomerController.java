@@ -8,6 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/api/v1/customer")
@@ -21,31 +25,32 @@ public class CustomerController {
     }
 
     @GetMapping("/{costumerId}")
-    public ResponseEntity<CustomerDto> getCustomerById(@PathVariable("costumerId") UUID costumerId){
+    public ResponseEntity<CustomerDto> getCustomerById(@PathVariable("costumerId") UUID costumerId) {
         return new ResponseEntity<CustomerDto>(
                 service.getCustomerById(costumerId),
                 HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity handlePost(@RequestBody CustomerDto customerDto){
-        CustomerDto saveDto= service.saveCustomer(customerDto);
+    public ResponseEntity handlePost(@Valid@RequestBody CustomerDto customerDto) {
+        CustomerDto saveDto = service.saveCustomer(customerDto);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location","/api/v1/customer" + saveDto.getId().toString());
+        headers.add("Location", "/api/v1/customer" + saveDto.getId().toString());
 
-        return new ResponseEntity(headers,HttpStatus.CREATED);
+        return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
     @PutMapping("/{costumerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void handlePut(@PathVariable UUID costumerId,@RequestBody CustomerDto customerDto){
-        service.updateCustomerById(costumerId,customerDto);
+    public void handlePut(@PathVariable UUID costumerId, @Valid@RequestBody CustomerDto customerDto) {
+        service.updateCustomerById(costumerId, customerDto);
     }
 
     @DeleteMapping("/{costumerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCustomer(@PathVariable UUID costumerId){
-    service.deleteCustomer(costumerId);
+    public void deleteCustomer(@PathVariable UUID costumerId) {
+        service.deleteCustomer(costumerId);
     }
+
 }
